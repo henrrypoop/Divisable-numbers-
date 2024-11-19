@@ -2,9 +2,9 @@
 def Determine_Numbers():
     try:
         if int(input("Enter a number here: ")) % 2 == 0: #Takes the user input number and see if it's divisable by 2 > odd numbers
-            print("It is divisable : D")
+            print("This is an even number")
         else:
-            print("It isn't divisable : (")
+            print("This is an odd number")
     except ValueError as V:
         print("You have not entered a number :(",V)
 Determine_Numbers()

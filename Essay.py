@@ -17,5 +17,7 @@ print("b)\n")
 result = 0 
 for i in range(10,20):
     power = i - 9 # Power starts at 1 for i = 10 and goes up to 10 for i = 19
-    result += (5/i)**power
-    print(f"i is: {i} so:\n {result}")
+    term = (5/i)**power
+    print(f"i is: {i} so:\n {term}")
+    result += term
+print(f"\nCalculating A/10 + (A/11)^2 + (A/12)^3 + ... + (A/17)^8 + (A/18)^9 + (A/19)^10 is:{result}")

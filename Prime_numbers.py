@@ -15,12 +15,8 @@ def prime():
         print("Determing prime numbers...")
         num = int(input("Enter a number here :"))
 
-        if num > 1: # The input number has to be larger than 0
-            if num == 2: # 2 as an exception
-                        divisable(num) # calls the function
-                        print("--This is a prime number--\n")
-            else:
-                for i in range(2,int(sqrt(num)+2)):
+        if num > 2: # The input number has to be larger than 2
+                for i in range(2,int(sqrt(num)+1)):
                     divisable(num) # calls the function  # a for loop that rune once to determine prime numbers               
                     if num % i == 0:                    
                         is_prime = False #Updates the variable
@@ -31,7 +27,7 @@ def prime():
                 else: #if not then:
                     print("--This isn't a prime number--\n")
 
-        else: #for the remaining cases where numbers are <=1.
+        else: #for the remaining cases where numbers are < 2.
             print(f"-- {num} is not a prime number.--\n")
 
     except ValueError as V: #returns an error if the input is not a number.

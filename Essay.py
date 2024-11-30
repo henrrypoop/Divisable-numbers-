@@ -103,22 +103,33 @@ def is_odd():
         for num in row:
             num % 2 != 0 
 
-odd_A_count = []
-for row in A: #Nested loop for iterating rows/nums inside the matrix
-    count = 0 # creates a counter for each row
+def longest_odd_A_sequence(row):
+    max_length = 0 # Stores the maximum length of consecutive odd numbers
+    current_length = 0 #Tracks the current streak of odd numbers
     for num in row: # a loop for counting odds numbers
-        if num % 2 != 0: #Counts odds in the rows
-            count += 1 #increment of 1
-    odd_A_count.append(count) #adds a counter to each rows
+        if num % 2 != 0: #Counts odds in each rows
+            current_length += 1 #increment of 1
+            max_length = max(max_length,current_length) #Update maximum length
+        else:
+            current_length = 0 # Resets the streak if the number is even
+    return max_length
 
-max_odd_count = max(odd_A_count)
-print("The original matrix is: \n",A,"\n")
-row_number = 0
+#find rows with the longest contiguous odd sequence
+longest_odd_rows = [] #Stores rows with the maximum contiguous odd sequence
+max_odd_length = 0 #maximum length of contiguous odd sequence
+
 for row in A:
-    if odd_A_count[row_number] == max_odd_count:
-        print(f"Row {row_number}: {row} with {max_odd_count} odds")
-    row_number += 1
+    length = longest_odd_A_sequence(row) #Get the longest odd sequence in a row
+    if length > max_odd_length:
+        max_odd_length = length #Update the maximum length
+        longest_odd_rows = [row] #Reset to only this row
+    elif length == max_odd_length:
+        longest_odd_rows.append(row) #Add this row to the list
 
+print("The original matrix is: \n",A,"\n")
+print(f"Rows with the longest contiguous odd numbers sequence (length {max_odd_length}):")
+for row in longest_odd_rows:
+    print(row)
 
-
+###########PROBLEM: MATRICES THAT HAS NO PRIME OR ODDS NUMBERS AREN'T SOLVED YET###############
    

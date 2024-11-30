@@ -21,33 +21,22 @@ print("b)\n")
 result = 0 
 for i in range(10,20):
     power = i - 9 # Power starts at 1 for i = 10 and goes up to 10 for i = 19
-    term = (A/i)**power #previously tried using result += ... >> Wrong calculations due to python rounding up numbers
-    #So putting it into another variable and then adding up that variable in the result works instead
-    #print(f"i is: {i} so:\n {term}") For debugging in each loops
+    term = (A/i)**power 
     result += term
 print("The original matrix is: \n",A,"\n")
 print(f"\nCalculating A/10 + (A/11)^2 + (A/12)^3 + ... + (A/17)^8 + (A/18)^9 + (A/19)^10 is\n:{result}")
 
 # saving odd integer numbers in the matrix A into a new vector, and printing the resultant vector to the screen.
 print("c)\n")
-'''int_A = []
-for row in A: # iterating through each rows of the matrix
-    for num in row: # looping through each numbers in the row
-        if num % 2 != 0: # checks if the number is odd
-            int_A.append(num)
-print(int_A)'''
-
-def odd():
-    return A % 2 != 0 # returns the boolean mask directly
-int_A = A[odd()] #Boolean indexing returns a flattened 1D array (vector)   
-#print("The boolean Mask: ",odd()) # for debugging
+c = []
+c = A[A % 2 != 0] #Boolean indexing returns a flattened 1D array (vector)   
 print("The original matrix is: \n",A,"\n")
-print(int_A)
+print(c)
 
 # saving prime numbers in the matrix A into a new vector, and printing the resultant vector to the screen.
 print("d)\n")
-A = np.random.randint(1,101, size =(3,3))
-def is_prime(number):
+d = []
+def is_prime(number): # A function used to determine prime numbers
     if number < 2: # Prime numbers are numbers that is larger than 1 and only divisable by 1 and themselves.
         return False
     for i in range(2,int(np.sqrt(number))+1): #A for loop to check divisors up to sqrt(num)
@@ -56,19 +45,18 @@ def is_prime(number):
     return True #If no divisors are found, it's prime
     
 #Iterating through the matrix to find a prime number:                        
-prime_A = []
 for row in A: #Nested loop for iterating rows/nums inside the matrix
     for num in row:
         if is_prime(num): #check if the number(num) in each rows is prime
-            prime_A.append(num)
+            d.append(num)
 # Due to it being a list,the output will be: np.int32(...),np.int32(...),...
 # Therefor we need to convert it into an array(vector):
 
-vector_prime_A = np.array(prime_A) # converting it into a vector
+vector_prime_d = np.array(d) # converting it into a vector
 #print(A,"\n")            
 #print(prime_A) outputs np.int32(...),np.int32(...),...
 print("The original matrix is: \n",A,"\n")
-print(vector_prime_A)
+print(vector_prime_d)
 #Regarding the matrix A, find the rows which have maximum count of prime numbers, and print the rows to the screen.
 print("e)\n")
 

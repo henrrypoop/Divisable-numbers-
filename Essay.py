@@ -38,7 +38,7 @@ def is_prime(number): # A function used to determine prime numbers
         if number % i == 0:
             return False # returns False if there are divisors, then it's not prime
     return True #If no divisors are found, it's prime
-    
+   
 #Iterating through the matrix to find a prime number:                        
 for row in A: #Nested loop for iterating rows/nums inside the matrix
     for num in row:
@@ -46,8 +46,7 @@ for row in A: #Nested loop for iterating rows/nums inside the matrix
             d.append(num)
 
 vector_prime_d = np.array(d) # converting it into a vector
-           
-
+          
 print("Prime numbers in matrix A are:",vector_prime_d)
 
 #Regarding the matrix A, find the rows which have maximum count of prime numbers, and print the rows to the screen.
@@ -71,10 +70,6 @@ for row in A:
 
 #Regarding the matrix A, find the rows which have the longest contiguous odd numbers sequence, and print the rows to the screen.
 print("f)\n")
-def is_odd():
-    for row in A:
-        for num in row:
-            num % 2 != 0 
 
 def longest_odd_A_sequence(row):
     max_length = 0 # Stores the maximum length of consecutive odd numbers
@@ -100,7 +95,7 @@ for row in A:
         longest_odd_rows.append(row) #Add this row to the list
 
 
-print(f"Rows with the longest contiguous odd numbers sequence (length {max_odd_length}):")
+print(f"Rows with the longest contiguous odd numbers sequence (length {max_odd_length}) in matrix A:")
 for row in longest_odd_rows:
     print(row)
 

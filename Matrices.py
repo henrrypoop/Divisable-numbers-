@@ -1,41 +1,67 @@
 import numpy as np
 from sympy import *
 from scipy.linalg import svd
-#Rank 2
 # sources: https://docs.sympy.org/latest/tutorials/intro-tutorial/matrices.html#eigenvalues-eigenvectors-and-diagonalization
 # https://www.geeksforgeeks.org/singular-value-decomposition-svd/
-A = Matrix([[3,2,1],[1,2,3]])
-A1 = np.array([[3,2,1],[1,2,3]])
+# HIGHLY UNDER DEVELOPMENT
+# a rank 2 ,2x3 matrix
+A = Matrix([[1,1,0],[0,1,1]])
+A1 = np.array([[1,1,0],[0,1,1]])
 
-print("The maxtrix given:\n",np.array(A))
-print("Reduced echelon form of the given matrix:\n",A.echelon_form(),"\n")
-print("The rank of the matrix:",A.rank(),"\n")
+# a rank 1 ,2x3 matrix
+B = Matrix([[1,2,3],[2,4,6]])
+B1 = np.array([[1,2,3],[2,4,6]])
 
-#AxA.T Part
-print("AxA.T is:\n",np.array(A * A.T),"\n")
-print("                          AxA.T is:")
-def calc(matrix,name):
+names = ["A","B"]
+
+
+def stuffs(anime,fart):
+  print(f"Matrix {fart} is \n{np.array(anime)}\n")
+  print(f"Reduced echelon form of matrix {fart}\n{np.array(anime)} is :\n",np.array(anime.echelon_form()),"\n")
+  print(f"The rank of matrix {fart}\n{np.array(anime)} is :",anime.rank(),"\n")
+  #AxA.T Part
+  print(f"{fart} x {fart}.T is:\n",np.array(anime * anime.T),"\n")
+  print(f"{fart}.T x {fart} is:\n",np.array(anime.T * anime),"\n")
   print("---------------------------------------------------------------------")
+
+stuffs(A,names[0])
+stuffs(B,names[1])
+
+def calc(Mname,matrix,name):
+  print(f"matrix {Mname}\n")
+  print(f"{name} is:\n",np.array(matrix))
+  print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&") 
   #print("The det of the given matrix:",matrix.det())
   print(f"The eigenvalues and eigenvectors of {name} is:\n{matrix.eigenvects()}\n")
   #Perform diagolization
   #P are eigenvectors, D are eigenvalues
   P, D = matrix.diagonalize()
-  #Let u1,u2 be:
-  u1 = P[:,0]
-  u2 = P[:,1]
-
-  print("Let u1 be the eigenvector 1:\n",np.array(u1))
-  print("Let u2 be the eigenvector 2:\n",np.array(u2),"\n")
+  
+  if name == "A*A.T" or name == "B*B.T":
+    u1 = P[:,0]
+    u2 = P[:,1]
+    print("Let u1 be the eigenvector 1:\n",np.array(u1))
+    print("Let u2 be the eigenvector 2:\n",np.array(u2),"\n")
+  else:
+    u1 = P[:,0]
+    u2 = P[:,1]
+    u3 = P[:,2]
+    print("Let u1 be the eigenvector 1:\n",np.array(u1))
+    print("Let u2 be the eigenvector 2:\n",np.array(u2))
+    print("Let u3 be the eigenvector 3:\n",np.array(u3),"\n")
 
   #Checking for orthogonality
-  def orthogonality_check(a,b):
-    if a.dot(b) == 0:
-      return True
+ 
+  if name == "A*A.T" or name == "B*B.T":
+    if u1.dot(u2) == 0:
+      print("orthogonality between u1 and u2 is TRUE\n")
     else:
-      return False
-
-  print("orthogonality between u1 and u2 is:",orthogonality_check(u1,u2),"\n")
+      print("orthogonality between u1 and u2 is FALSE\n")
+  else:
+    if u1.dot(u2) == 0 and u1.dot(u3) == 0 and u2.dot(u3) == 0:
+          print("orthogonality between u1 and u2 and u3 is TRUE\n")
+    else:
+          print("orthogonality between u1 and u2 and u3 is FALSE\n")
 
   #Normalizing the eigenvectors to form w1,|w2/ to form an orthogonal matrix that diagonalizes A.AT
   w1 = u1 / u1.norm()
@@ -47,7 +73,27 @@ def calc(matrix,name):
   print("Left singular value of the matrix is:\n",U,"\n")
   print("Singular value of the matrix is:\n",S,"\n")
   print("Right singular value of the matrix is:\n",V,"\n")
-  print("---------------------------------------------------------------------")
-calc(A*A.T,"A*A.T")
-print("                          A.TxA is:")
-calc(A.T*A,"A.T*A")
+  print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&") 
+
+"""steve = A*A.T 
+alex = B*B.T 
+reverse_steve = A.T*A
+reverse_alex = B.T*B
+
+def results():
+  print("\n")
+  print(f"matrix {names[0]} is :                    \n{A1}")
+  calc(steve,str(steve))
+  print(f"inverse of matrix  {names[0]} is :                    \n{A1}")
+  calc(reverse_steve,str(reverse_steve))
+
+print("\n")
+print(f"matrix {names[1]} is :                    \n{B1}")
+calc(alex,str(alex))
+calc(reverse_alex,str(reverse_alex))"""
+
+calc("A",A*A.T,"A*A.T")
+calc("A",A.T*A,"A.T*A")
+calc("B",B*B.T,"B*B.T")
+calc("B",B.T*B,"B.T*B")
+

@@ -1,11 +1,11 @@
 import numpy as np
 from sympy import *
 from scipy.linalg import svd
-#Rank 0
+#Rank 2
 # sources: https://docs.sympy.org/latest/tutorials/intro-tutorial/matrices.html#eigenvalues-eigenvectors-and-diagonalization
 # https://www.geeksforgeeks.org/singular-value-decomposition-svd/
-A = Matrix([[3,2,2],[2,3,-2]])
-A1 = np.array([[3,2,2],[2,3,-2]])
+A = Matrix([[3,2,1],[1,2,3]])
+A1 = np.array([[3,2,1],[1,2,3]])
 
 print("The maxtrix given:\n",np.array(A))
 print("Reduced echelon form of the given matrix:\n",A.echelon_form(),"\n")

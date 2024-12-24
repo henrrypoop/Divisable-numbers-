@@ -13,7 +13,9 @@ B = Matrix([[1,2,3],[2,4,6]])
 B1 = np.array([[1,2,3],[2,4,6]])
 
 names = ["A","B"]
-
+# Testing
+A = Matrix([[3,2,2],[2,3,-2]])
+A1 = np.array([[3,2,2],[2,3,-2]])
 
 def stuffs(anime,fart):
   print(f"Matrix {fart} is \n{np.array(anime)}\n")
@@ -28,6 +30,8 @@ stuffs(A,names[0])
 stuffs(B,names[1])
 
 def calc(Mname,matrix,name):
+  #Accessing the variable A using globals()
+  A_matrix = globals()[Mname]
   print(f"matrix {Mname}\n")
   print(f"{name} is:\n",np.array(matrix))
   print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&") 
@@ -43,12 +47,12 @@ def calc(Mname,matrix,name):
     print("Let u1 be the eigenvector 1:\n",np.array(u1))
     print("Let u2 be the eigenvector 2:\n",np.array(u2),"\n")
   else:
-    u1 = P[:,0]
-    u2 = P[:,1]
-    u3 = P[:,2]
-    print("Let u1 be the eigenvector 1:\n",np.array(u1))
-    print("Let u2 be the eigenvector 2:\n",np.array(u2))
-    print("Let u3 be the eigenvector 3:\n",np.array(u3),"\n")
+    v1 = P[:,0]
+    v2 = P[:,1]
+    v3 = P[:,2]
+    print("Let u1 be the eigenvector 1:\n",np.array(v1))
+    print("Let u2 be the eigenvector 2:\n",np.array(v2))
+    print("Let u3 be the eigenvector 3:\n",np.array(v3),"\n")
 
   #Checking for orthogonality
  
@@ -58,21 +62,28 @@ def calc(Mname,matrix,name):
     else:
       print("orthogonality between u1 and u2 is FALSE\n")
   else:
-    if u1.dot(u2) == 0 and u1.dot(u3) == 0 and u2.dot(u3) == 0:
+    if v1.dot(v2) == 0 and v1.dot(v3) == 0 and v2.dot(v3) == 0:
           print("orthogonality between u1 and u2 and u3 is TRUE\n")
     else:
           print("orthogonality between u1 and u2 and u3 is FALSE\n")
 
   #Normalizing the eigenvectors to form w1,|w2/ to form an orthogonal matrix that diagonalizes A.AT
-  w1 = u1 / u1.norm()
-  w2 = u2 / u2.norm()
-  #Constructing Matrix U that will orthogonally diagonalizes A.AT
-  U_ = Matrix.hstack(w1,w2)
-  U , S, V = svd(A1)
-  print("The matrix that orthogonally diagnoalizes A.AT is U=\n",np.array(U_),"\n")
-  print("Left singular value of the matrix is:\n",U,"\n")
-  print("Singular value of the matrix is:\n",S,"\n")
-  print("Right singular value of the matrix is:\n",V,"\n")
+  if name == "A*A.T" or name == "B*B.T":
+    w1 = u1 / u1.norm()
+    w2 = u2 / u2.norm()
+    U_ = Matrix.hstack(w1,w2)
+    print(f"The matrix that orthogonally diagnoalizes {name} is \nU=\n",np.array(U_),"\n")
+  else: # For A.T x A or B.T x B
+    v1 = v1 / v1.norm()
+    v2 = v2 / v2.norm()
+    v3 = v3 / v3.norm()
+    V_ = Matrix.hstack(v1,v2,v3)
+    print(f"The matrix that orthogonally diagnoalizes {name} is \nV=\n",np.array(V_),"\n")
+  #Constructing Matrix U that will orthogonally diagonalizes A.AT/AT.A
+  U , S, V = svd(A_matrix)
+  print(f"Left singular vectors of matrix {Mname} is:\nU=\n",U,"\n")
+  print(f"Singular value of matrix {Mname} is:\nS=\n",S,"\n")
+  print(f"Right singular vectors of matrix {Mname} is:\nV.T=\n",V,"\n")
   print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&") 
 
 """steve = A*A.T 
@@ -92,8 +103,8 @@ print(f"matrix {names[1]} is :                    \n{B1}")
 calc(alex,str(alex))
 calc(reverse_alex,str(reverse_alex))"""
 
-calc("A",A*A.T,"A*A.T")
-calc("A",A.T*A,"A.T*A")
-calc("B",B*B.T,"B*B.T")
-calc("B",B.T*B,"B.T*B")
+calc("A1",A*A.T,"A*A.T")
+calc("A1",A.T*A,"A.T*A")
+calc("B1",B*B.T,"B*B.T")
+calc("B1",B.T*B,"B.T*B")
 

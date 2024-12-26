@@ -55,7 +55,7 @@ def calc(Mname,matrix,name):
     a2 = V_1[1,:]
     a3 = V_1[2,:]
     #print(a1,"\n",a2,"\n",a3,"\n")
-    #print("Testing",V_1) 
+    #print("Testing",V_1)
     print("v2 is:/n",(np.dot(a2,a1)/np.dot(a1,a1))*a1)
     print("v3 is:/n",(np.dot(a3,a2)/np.dot(a2,a2))*a2)
   #Checking for orthogonality
@@ -65,18 +65,25 @@ def calc(Mname,matrix,name):
       print("orthogonality between u1 and u2 is TRUE\n")
     else:
       print("orthogonality between u1 and u2 is FALSE\n")
+
   #Normalizing the eigenvectors to form w1,|w2/ to form an orthogonal matrix that diagonalizes A.AT
+  subname = {}
   if name == "A*A.T" or name == "B*B.T":
     w1 = u1 / u1.norm()
     w2 = u2 / u2.norm()
     U_ = Matrix.hstack(w1,w2)
+    subname = "U"
     print(f"The matrix that orthogonally diagonalizes {name} is \nU=\n",np.array(U_),"\n")
+    print(f"and the diagonal matrix is: {subname}^T({name}){subname} = D = \n",U_.T*matrix*U_)
   else: # For A.T x A or B.T x B
     v1 = v1.T / Matrix(v1).norm()
     v2 = v2.T / Matrix(v2).norm()
     v3 = v3.T / Matrix(v3).norm()
     V_ = Matrix.hstack(v1,v2,v3)
+    subname = "V"
     print(f"The matrix that orthogonally diagonalizes {name} is \nV=\n",np.array(V_),"\n")
+    print(f"and the diagonal matrix is: {subname}^T({name}){subname} = D = \n",V_.T*matrix*V_)
+
   #Constructing Matrix U that will orthogonally diagonalizes A.AT/AT.A
   U , S, V = svd(A_matrix)
   print(f"Left singular vectors of matrix {Mname} is:\nU=\n",U,"\n")
